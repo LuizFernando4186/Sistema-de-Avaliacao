@@ -18,3 +18,11 @@ Trabalho da disciplina de GPTI
  <li>Este projeto tem como objetivo desenvolver um sistema de avaliações em relação a conceitos de DevOps, possuindo questões abertas e fechadas. Visa-se um maior grau automação durante a correção das atividades, conferindo feedback automático aos alunos sempre que possível, além de diminuir o esforço desnecessário de professores.
 </li>
 </ul>
+
+<b> Para Teste </b>
+
+<ul>
+ <li>docker network create canais-usp-cloudnetwork</li>
+ <li>na pasta api: mvn clean install</li>
+ <li>na pasta db: docker compose up</li>
+</ul>
