@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 
 @Component({
@@ -10,9 +11,12 @@ export class HomeProfessorComponent implements OnInit {
 
   @Input() usuario: Usuario = new Usuario();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  public navegar(rota: string){
+    this.router.navigate([rota]);
+  }
 }

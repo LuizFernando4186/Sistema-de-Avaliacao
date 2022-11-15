@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, Observable, of } from 'rxjs';
 import { ProvasRealizadas } from 'src/app/model/provas-realizadas';
@@ -17,7 +18,7 @@ export class VisualizarCorrecoesComponent implements OnInit {
 
   provas$: Observable<ProvasRealizadas[]>;
 
-  constructor(private serviceService: BackendService, private dialog: MatDialog) {
+  constructor(private serviceService: BackendService, private dialog: MatDialog, private location: Location) {
     this.provas$ = serviceService.listProvasRealizadas()
     .pipe(
       catchError(error => {
@@ -26,6 +27,10 @@ export class VisualizarCorrecoesComponent implements OnInit {
     );
    }
   ngOnInit(): void {
+  }
+
+  back(){
+    this.location.back();  
   }
 
 }

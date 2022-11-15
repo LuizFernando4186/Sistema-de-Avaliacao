@@ -17,6 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatChipsModule,
     MatTabsModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatRadioModule,
+    MatCheckboxModule
 
   ]
 })

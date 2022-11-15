@@ -3,5 +3,5 @@
     "nome": "Luiz",
     "login": "string",
     "senha": "string",
-    "tipo": "Aluno"
+    "tipo": "Professor"
 }

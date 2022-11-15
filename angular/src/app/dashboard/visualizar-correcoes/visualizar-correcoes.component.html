@@ -30,8 +30,13 @@
                     <td mat-cell *matCellDef="let prova"> {{ prova.nota }} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="['data', 'disciplina', 'titulo', 'nota']"></tr>
-                <tr mat-row *matRowDef="let prova; columns: ['data', 'disciplina', 'titulo', 'nota']"></tr>
+                <ng-container matColumnDef="avaliacao">
+                    <th mat-header-cell *matHeaderCellDef> Avaliação do Professor</th>
+                    <td mat-cell *matCellDef="let prova"> {{ prova.avaliacao }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['data', 'disciplina', 'titulo', 'nota', 'avaliacao']"></tr>
+                <tr mat-row *matRowDef="let prova; columns: ['data', 'disciplina', 'titulo', 'nota', 'avaliacao']"></tr>
             </table>
         </div>
 
@@ -45,7 +50,7 @@
 
 
     <div class="button">
-        <button>Visualizar correções</button>
+        <button (click)="back()">Retornar</button>
     </div>
 
 </body>

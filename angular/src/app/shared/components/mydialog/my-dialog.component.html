@@ -2,6 +2,10 @@
 <div mat-dialog-content>
   <p>preencha os campos a seguir</p>
   <mat-form-field appearance="fill">
+    <mat-label>Nusp</mat-label>
+    <input matInput [(ngModel)]="usuario.id">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>Nome</mat-label>
     <input matInput [(ngModel)]="usuario.nome">
   </mat-form-field>
@@ -12,6 +16,10 @@
   <mat-form-field appearance="fill">
     <mat-label>Senha</mat-label>
     <input matInput [(ngModel)]="usuario.senha">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Disciplina</mat-label>
+    <input matInput [(ngModel)]="usuario.disciplina">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Categoria</mat-label>

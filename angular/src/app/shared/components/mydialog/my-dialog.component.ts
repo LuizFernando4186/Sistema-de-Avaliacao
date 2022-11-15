@@ -21,7 +21,7 @@ export class MydialogComponent implements OnInit {
   ngOnInit(): void {}
 
   public onAdd(): void {
-  //this.backendService.save(this.usuario).subscribe(_result => this.onSucess(), _error => this.onError());
+    this.backendService.save(this.usuario).subscribe(_result => this.onSucess(), _error => this.onError());
   }
   
   private onSucess() {

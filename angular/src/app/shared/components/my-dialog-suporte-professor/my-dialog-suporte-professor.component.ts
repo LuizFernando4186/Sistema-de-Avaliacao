@@ -23,12 +23,11 @@ export class MyDialogSuporteProfessorComponent implements OnInit {
   ngOnInit(): void {}
 
   public onSucess() {
-    this.router.navigate(['login']);
-    this.snackBar.open('Saiu com sucesso!', '', {duration: 3000});
+    this.snackBar.open('Enviado com sucesso!', '', {duration: 3000});
   }
 
   public onError() {
-    this.snackBar.open('Erro ao Adicionar Descrição.', '', { duration: 3000 });
+    this.snackBar.open('Erro ao Adicionar Mensagem.', '', { duration: 3000 });
   }
 
 

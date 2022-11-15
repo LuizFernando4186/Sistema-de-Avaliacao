@@ -13,8 +13,7 @@ export class HomeComponent implements OnInit {
 
   @Output() usuario: Usuario = new Usuario();
 
-  constructor(
-    private backendService: BackendService) {
+  constructor(private backendService: BackendService) {
 
     this.usuario = this.backendService.usuarioLogado;
    }

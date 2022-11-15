@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
 
     console.log(this.login);
 
-
     this.backendService.login(this.login).subscribe(
       _result => this.router.navigate(['dashboard/home']));
     
@@ -60,8 +59,7 @@ export class LoginComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(MydialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog fechado!');
+    dialogRef.afterClosed().subscribe(result => {      
     });
   }
 

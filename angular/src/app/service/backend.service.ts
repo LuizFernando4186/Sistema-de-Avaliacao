@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, first, Observable, tap } from 'rxjs';
 
-import { AuthService } from './auth.service';
 import { Login } from '../model/login';
 import { Usuario } from '../model/usuario';
 import { ProvasRealizadas } from '../model/provas-realizadas';
+import { NovaProva } from '../model/nova-prova';
 
 
 @Injectable({
@@ -13,24 +13,41 @@ import { ProvasRealizadas } from '../model/provas-realizadas';
 })
 export class BackendService {
 
-  private readonly API_PESSOAS = '/assets/pessoas.json';
-  private readonly API_POST = '/assets/posts.json';
-  private readonly API_CADASTRO = '/assents/cadastro.json';
-  private readonly API_LIST_PROVAS = '../assets/provas.json';
+  private readonly API_QUESTOES = '/controller/listar/questoes?disciplina=';
+  private readonly API_POST = '/controller/listar/gabarito/avaliacao?avaliacao=';
+  private readonly API_CADASTRO = '/controller/adicionar/usuario';
+  private readonly API_LIST_PROVAS = '/controller/listar/gabarito?id_aluno=';
+  private readonly API_NOVA_PROVA = '/controller/adicionar/prova';
+  private readonly API_PROVA = '/controller/listar/prova';
+  private readonly API_GABARITO = '/controller/adicionar/gabarito';
+
   
   LS_CHAVE: string = "usuarioLogado";
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
   //efetua o login, buscando no banco
   public login(request: Login): Observable<Usuario> {
-    const api = '../../assets/login.json';
-    return this.httpClient.get<Usuario>(api).pipe(
-      tap((loginResponse) => (this.authService.loginResponse = loginResponse, this.salvarSessionStorage(loginResponse)))
+    const api = '/controller/login?login=';
+    console.log(api + request.login+'&senha='+request.senha)
+    return this.httpClient.get<Usuario>(api + request.login+'&senha='+request.senha).pipe(
+      tap((loginResponse) => (this.salvarSessionStorage(loginResponse)))
     );
-
-
   }
+
+  save(record: Usuario) {
+    return this.httpClient.post<Usuario>(this.API_CADASTRO, record).pipe(first());
+  }
+
+  saveProva(record: NovaProva) {
+    return this.httpClient.post<NovaProva>(this.API_NOVA_PROVA, record).pipe(first());
+  }
+
+  saveGabarito(record: ProvasRealizadas) {
+    return this.httpClient.post<ProvasRealizadas>(this.API_GABARITO, record).pipe(first());
+  }
+
+
 
   //retorna o usuario logado
   public get usuarioLogado(): Usuario {
@@ -39,7 +56,6 @@ export class BackendService {
   }
 
   public set usuarioLogado(usuario: Usuario) {
-
     localStorage[this.LS_CHAVE] = JSON.stringify(usuario);
   }
 
@@ -55,33 +71,36 @@ export class BackendService {
 
 
   //para o rank
-  public listPessoas() {
-    return this.httpClient.get<any[]>(this.API_PESSOAS).pipe(
+  public listQuestoes(disciplina: string) {
+    return this.httpClient.get<any[]>(this.API_QUESTOES+disciplina).pipe(
       first(),
-      delay(1000),
-      tap(pessoas => console.log(pessoas))
+      tap(questoes => console.log(questoes))
+    );
+  }
+
+   //para o rank
+   public listProvas() {
+    return this.httpClient.get<any[]>(this.API_PROVA).pipe(
+      first(),
+      tap(provas => console.log(provas))
     );
   }
 
 
   //carregar os posts de todos os usuarios
-  public listPost() {
-    return this.httpClient.get<any[]>(this.API_POST).pipe(
+  public listProvasCorrigir() {
+    return this.httpClient.get<any[]>(this.API_POST+'nao').pipe(
       first(),
-      delay(1000),
       tap(diagnosticos => console.log(diagnosticos))
     );
   }
 
 
-  save(record: Usuario) {
-    console.log(record);
-    return this.httpClient.post<Usuario>(this.API_CADASTRO, record).pipe(first());
-  }
 
 
   public listProvasRealizadas() {
-    return this.httpClient.get<ProvasRealizadas[]>(this.API_LIST_PROVAS).pipe(
+
+    return this.httpClient.get<ProvasRealizadas[]>(this.API_LIST_PROVAS+this.usuarioLogado.id).pipe(
       first(),
       tap(provas => console.log(provas))
     );
